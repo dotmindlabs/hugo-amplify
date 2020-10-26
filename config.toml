@@ -1,5 +1,18 @@
 baseURL = "/"
 languageCode = "en-us"
-title = "My New Hugo Site"
-
+title = "Blind Architect"
 theme = "m10c"
+
+[params]
+ author = "Eduardo Matias"
+ avatar = "images/2315349.jpeg"
+
+[[params.social]]
+
+ name = "github"
+ url = "https://github.com/dotmindlabs"
+
+[[params.social]]
+
+ name = "linkedin"
+ url = "https://www.linkedin.com/in/josematias/"
