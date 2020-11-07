@@ -4,6 +4,8 @@ date: 2020-06-25T16:41:12+02:00
 draft: true
 ---
 
+![image alt text](/images/2315349.jpeg)
+
 S3
 ---
 - S3 is **Object** based
@@ -298,7 +300,7 @@ Example: CORS is set for example to fetch fonts from another server.
 Kinesis
 =======
 
-Allows to process and analyze real-time and streaming data, as it arrives, and respond instantly instead of having to wait unitl all your data is collected before the processing can begin.
+Allows to process and analyze real-time and streaming data, as it arrives, and responds instantly instead of having to wait unitl all your data is collected before the processing can begin.
 
 - Streams are made of Shards
 - Each Shard **ingest** data up to **1MB/sec**, and up to 1000 TPS
@@ -319,8 +321,16 @@ Kinesis Firehose:
 
 Producers -> Optional Lambda -> Consumers Elastic
 
-- Analyze on the fly
-- No storage
+- Allows to Transform (Lambda) and Analyze on the fly
+- Allows batching and compressioon of data
+- Without Storage
+
+Firehose vs Data Streams:
+
+- Firehose will automatically scale vs Data Streams the later requires manually provision
+- Both allow to load data using a number of methods, including **HTTPS, the Kinesis Producer Library, the Kinesis Client Library, and the Kinesis Agent**. 
+- Currently, it is only possible to stream data via Firehose to **S3 and Redshift**
+
 
 Kinesis Data Analytics  
 
@@ -545,13 +555,70 @@ AWS Systems Manager
 -------------------
 
 - Centrally manage hybrid cloud resources at any scale
-- Operate any AWS or external resource centrally (instance, container, serverless))
-- Uses agent for Windows or Linux
-- Multi account, multi region automation
+- Operate any AWS or external resource centrally (instance, container, serverless)
+- Uses agents for Windows or Linux
+- Multi-account, multi-region automation
+
+# Elastic Load-Balancers
+----------------------
+
+ELB Types
+---------
+
+![ELB types](/images/elb/elb-types.png)
+
+Cross-Zone Load Balancing
+-------------------------
+
+- Whith Cross-Zone Load Balancing enabled: Each Load Balancer instance distributes evenly across **all** registered instances in **all AZs**.
+- Whithout Cross-Zone Load Balancing enabled: Each Load Balancer instance distributes evenly across **all** registered instances in **its AZ**.
+
+![ELB cross-zone](/images/elb/cross-zone.png)
+
+
+CLB - Classic Load Balancer
+---------------------------
+- Disabled by default 
+- No charges for inter AZ when enabled
+
+NLB - Network Load Balancer
+---------------------------
+- Disabled by Default
+- **$** Charges for inter AZ when enabled 
+
+ALB - Classic Load Balancer
+---------------------------
+- Always enabled and **cannot be disabled**
+- No charges for inter AZ 
+
+
+PrivateLink
+-----------
+
+- VPC Endpoinst (Gateway Endpoints) for S3 and DynamoDB. Services keep their public IPs but are connected directly to a VPC
+
+- PrivateLink uses a private IP for each AZ, these IPs belong to VPC CIDR block range. 
+- PrivateLink makes it easier to connect from on-prem with DirectConnect or VPN.
+- PrivateLink Shared Services between VPCs requires a Network Load Balancer. "Acceptance required" allows to review requests from users/customers.
+
+AWS ElastiCache vs RDS ReadReplica
+----------------------------------
+https://stackoverflow.com/questions/24728634/aws-elasticache-vs-rds-readreplica
+
 
 
 References
 ----------
 
-Knowledge Center
+AWS White Papers
+https://aws.amazon.com/whitepapers/
+
+AWS Knowledge Center
 https://aws.amazon.com/premiumsupport/knowledge-center/
+
+AWS Self-Paced labs
+https://aws.amazon.com/training/self-paced-labs/
+
+AWS Online Tech Talks
+https://www.youtube.com/c/AWSOnlineTechTalks/featured
+
